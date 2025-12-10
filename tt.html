@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=6666, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    const books = {
+        data: {},
+
+        addBook(name, author) {
+            const id = crypto.randomUUID();
+            this['data'][id] = { name, author, isDeliv: false }
+            console.log(`Книга id = ${id} добавлена.`)
+        },
+        deliveryBook(id) {
+            if (id in this['data'] && this['data'][id].isDeliv == false) {
+                this['data'][id].isDeliv = true;
+                return id
+            }
+            else {
+                console.log("Книга не найдена или уже выдана")
+                return false
+            }
+        },
+        searchBookByName(name) {
+            const find = []
+            for (const id in this['data']) {
+                if (this['data'][id]['name'] == name) {
+                    find.push(this['data'][id])
+                }
+            }
+            console.log(`Найденные книги '${name}': ▸ `, find)
+        },
+        searchBookByAuth(author) {
+            const find = []
+            for (const id in this['data']) {
+                if (this['data'][id]['author'] == author) {
+                    find.push(this['data'][id])
+                }
+            }
+            console.log(`Найденные по автору '${author}': ▸ `, find)
+        },
+        returnBook(arrData) {
+            const [readerId, id, readerName] = arrData
+            if (id in this['data'] && this['data'][id].isDeliv == true) {
+                this['data'][id].isDeliv = false;
+                console.log(`Книга id = ${id} возвращена от ${readerName} (id = ${readerId}) `)
+            }
+            else {
+                console.log("Это книга уже есть")
+            }
+        }
+    }
+
+    const readers = {
+        data: {},
+
+        addReader(name) {
+            const id = crypto.randomUUID();
+            this['data'][id] = { name, deliv: [], }
+            console.log(`Читатель id = ${id} (${name}) добавлен.`)
+            return id
+        },
+        getBook(id, bookId) {
+            if (bookId === false) {
+                return
+            }
+            else {
+                this['data'][id]['deliv'].push(bookId)
+                console.log(`Книга id = ${bookId} выдана читателю ${this['data'][id]['name']} (id = ${id})`)
+            }
+        },
+        giveBook(id, bookId) {
+            if (this['data'][id]['deliv'].includes(bookId)) {
+                return [id, bookId, this['data'][id]['name']]
+            }
+            else {
+                console.log("У читателя нету этой книги")
+                return false
+            }
+        }
+    }
+
+
+    // Книга id = 1 добавлена.&{}
+    // Книга id = 2 добавлена.
+    // Книга id = 3 добавлена.
+    const book1 = books.addBook("Harry Potter", "Rowling");
+    const book2 = books.addBook("Lord of the Rings", "Tolkien");
+    const book3 = books.addBook("Harry Potter", "Rowling");
+
+    // Читатель id = 1theta (Alice) добавлен.
+    // Читатель id = 11 (Bob) добавлен.
+    const readerAlice = readers.addReader("Alice");
+    const readerBob = readers.addReader("Bob");
+
+    // Книга id = 1 выдана читателю Alice (id = 1theta) .
+    // Книга id = 3 выдана читателю Bob (id = 11)
+    const issued1 = books.deliveryBook(book1);
+    readers.getBook(readerAlice, issued1);
+
+    const issued3 = books.deliveryBook(book3);
+    // Ошибка: книга id = 1 сейчас недоступна.
+    // Найденные книги 'harry': ▸ Array(2)ks.deliveryBook(book3);
+    readers.getBook(readerBob, issued3);
+
+    // Найденные по автору 'Rowling': ▸ Array (2)
+    const issuedAgain = books.deliveryBook(book1);
+    if (issuedAgain) readers.getBook(readerBob, issuedAgain);
+
+
+    // Книга id = 1 возвращена от Alice (id = 1theta) .
+    // Книга id = 1 выдана читателю Bob (id = 11)
+    books.searchBookByName("Harry Potter");
+    books.searchBookByAuth("Rowling");
+
+    const giveBack = readers.giveBook(readerAlice, book1);
+    if (giveBack) books.returnBook(giveBack);
+
+    const issuedNow = books.deliveryBook(book1);
+    readers.getBook(readerBob, issuedNow);
+
+
+</script>
+
+</html>
