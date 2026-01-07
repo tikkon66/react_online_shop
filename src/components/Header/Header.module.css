@@ -1,7 +1,75 @@
-.header_nav {
+
+
+.headerNav {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    border-radius: 12px;
+    background-color: #ffe8e8;
 }
 
-.header_nav_search {
+.headerNavSearch {
     display: flex;
+    width: 70%;
+    height: 40px;
+    gap: 5px;
+    align-items: center;
+}
+
+.navSearchField {
+    width: 80%;
+    height: 100%;
+    border: solid #333 1px;
+    border-radius: 7px;
+    padding: 0 10px;
+}
+
+.navSearchButton {
+    cursor: pointer;
+    height: 40px;
+    border-radius: 7px;
+    background-color: #333;
+    color: #fff;
+    padding: 0 5px;
+    display: flex;
+    align-items: center;
+    transition: all 0.1s;
+}
+
+.navSearchButton:active {
+    padding: 0 4px;
+    height: 37px;
+}
+
+.headerNavIcons {
+    display: flex;
+    margin: 0;
+    gap: 15px;
+}
+
+.headerNavIcon img {
+    cursor: pointer;
+    width: 30px;
+    margin: 5px;
+    transition: all 0.5s;
+}
+.headerNavIcon img:hover {
+    width: 32px;
+    margin: 0;
+}
+
+
+.headerSelects {
+
+    margin-top: 5px;
+}
+
+.headerSelects select{
+    height: 30px;
+    margin-right: 5px;
+    border-radius: 8px;
+}
+.headerSelects option{
+    border-radius: 8px;
 }

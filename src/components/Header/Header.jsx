@@ -5,21 +5,18 @@ function Header() {
         <header className={s.header}>
             <nav className={s.headerNav}>
                 <div className={s.headerNavSearch}>
-                    <input placeholder="Поиск товара" />
+                    <input className={s.navSearchField} placeholder="Поиск товара" />
                     <div className={s.navSearchButton}>Найти</div>
                 </div>
                 <div>
-                    <ul>
-                        <li className={s.headerNavIcon}>Корзина</li>
-                        <li className={s.headerNavIcon}>Избранный</li>
-                        <li className={s.headerNavIcon}>Профиль</li>
+                    <ul className={s.headerNavIcons}>
+                        <li className={s.headerNavIcon}><img src="src\assets\Header_image\cart.png"/></li>
+                        <li className={s.headerNavIcon}><img src="src\assets\Header_image\heart.png"/></li>
+                        <li className={s.headerNavIcon}><img src="src\assets\Header_image\avatar.png"/></li>
                     </ul>
-                    
-                    
-                    
                 </div>
             </nav>
-            <div>
+            <div className={s.headerSelects}>
                 <select>
                     <option value="value1">Значение 1</option>
                     <option value="value2" selected>Значение 2</option>
